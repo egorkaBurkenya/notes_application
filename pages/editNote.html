@@ -40,7 +40,7 @@
         text: document.querySelector('.createForm__textInput'),
         save: document.querySelector('.saveButton')
     }
-    fetch(`http://localhost:3000/note/noteUID`)
+    fetch(`http://185.46.8.167:3000//note/noteUID`)
     .then(response => response.json())
     .then(note => {
         dom.title.value = note.title
