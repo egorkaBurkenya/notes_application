@@ -1,0 +1,5 @@
+curl --data "title=newnote&msg=msg" http://localhost:3000/note
+### 
+curl -X DELETE http://localhost:3000/note/60a3820d610ccf2184c19ab0
+### 
+curl -X PUT -d title='New cool title' -d msg='new cool msg' http://localhost:3000/note/60a38f316053b2127039a065

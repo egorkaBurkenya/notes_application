@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/styles.css" type="text/css">
+    <title>Edit note</title>
+</head>
+<body>
+    <div class='content'>
+        <div class="app">
+            <h1 class="app__title">
+                Edit note
+            </h1>
+            <p class="about">
+                edit your note
+            </p>
+            <form action="/" class="back">
+                <button class="back"><img src="../public/back.png"></button>
+            </form>
+            <form class="createForm">
+                <div class="createForm__input">
+                    <label class="createForm__title">Title</label>
+                    <input class="createForm__titleInput" type="text" placeholder="title">
+                </div>
+                <div class="createForm__input">
+                    <label class="createForm__text">Text</label>
+                    <textarea class="createForm__textInput" placeholder="text"></textarea>
+                </div>
+                <button class="saveButton">save</button>
+            </form>
+            
+        </div>
+    </div>
+<script>
+    console.log('popa');
+    const dom = {
+        title: document.querySelector('.createForm__titleInput'),
+        text: document.querySelector('.createForm__textInput'),
+        save: document.querySelector('.saveButton')
+    }
+    fetch(`http://localhost:3000/note/noteUID`)
+    .then(response => response.json())
+    .then(note => {
+        dom.title.value = note.title
+        dom.text.value = note.msg
+    })
+    document.querySelector('.createForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        fetch(`/note/noteUID`, {
+            headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+            },
+            method: "PUT",
+            body: JSON.stringify({
+                title: document.querySelector('.createForm__titleInput').value,
+                msg: document.querySelector('.createForm__textInput').value
+            })
+        })
+        .then(response => response.text())
+        .then((response) => {
+            document.querySelector('.app__title').innerText = 'Edit ✅'
+        })
+        .catch(err => console.log(err))
+        })
+</script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./public/styles.css" type="text/css">
+    <title>Create note</title>
+</head>
+<body>
+    <div class='content'>
+        <div class="app">
+            <h1 class="app__title">
+                Create new note
+            </h1>
+            <p class="about">
+                Start to create new note
+            </p>
+            <form action="/" class="back">
+                <button class="back"><img src="./public/back.png"></button>
+            </form>
+            <form class="createForm">
+                <div class="createForm__input">
+                    <label class="createForm__title">Title</label>
+                    <input class="createForm__titleInput" type="text" placeholder="title">
+                </div>
+                <div class="createForm__input">
+                    <label class="createForm__text">Text</label>
+                    <textarea class="createForm__textInput" placeholder="text"></textarea>
+                </div>
+                <button class="createButton">create</button>
+            </form>
+            
+        </div>
+    </div>
+<script>
+    document.querySelector('.createForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        fetch(`/note`, {
+            headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify({
+                title: document.querySelector('.createForm__titleInput').value,
+                msg: document.querySelector('.createForm__textInput').value
+            })
+        })
+        .then(response => response.text())
+        .then((response) => {
+            document.querySelector('.app__title').innerText = 'Created ✅'
+        })
+        .catch(err => console.log(err))
+        })
+</script>
+</body>
+</html>
